@@ -40,5 +40,5 @@ new Listener("Game Chat Message", function (payload) {
 AMQ_addScriptData({
     name: "Notification Sounds",
     author: "ensorcell",
-    description: `<p>Makes notification sound</p>`
+    description: `<p>Makes notification sounds for DMs, game invites, friend requests, mentions in game chat, and room setting changes</p>`
 });
