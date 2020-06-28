@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         AMQ Notification Sounds
 // @namespace    http://tampermonkey.net/
-// @version      1.0
+// @version      1.1
 // @description  Adds notification sounds
 // @author       ensorcell
 // @match        https://animemusicquiz.com/*
@@ -33,7 +33,10 @@ new Listener("Game Chat Message", function (payload) {
         }
     }
 }).bindListener()
-new Listener("chat message", function (payload) {dm.play()}).bindListener();
+new Listener("Chat Message", function (payload) {dm.play()}).bindListener();
+new Listener("Game Invite", function (payload) {dm.play()}).bindListener();
+new Listener("New Friend Request Recived", function (payload) {dm.play()}).bindListener();
+
 
 AMQ_addScriptData({
     name: "Notification Sounds",
