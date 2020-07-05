@@ -18,6 +18,80 @@
 
 var vol=0.15;
 
+let notificationSettings = [
+	{
+		id:"toggleTable",
+		rows:
+		[
+			{
+				columns:
+				[
+                    {
+						id: "cdms",
+						type: "checkbox"
+					},
+					{
+						width: 200,
+						label: "DMs"
+					}
+				]
+			},
+			{
+				columns:
+				[
+                    {
+						id: "cinv",
+						type: "checkbox"
+					},
+					{
+						width: 200,
+						label: "Game Invites"
+					}
+				]
+			},
+            {
+				columns:
+				[
+                    {
+						id: "sreq",
+						type: "checkbox"
+					},
+					{
+						width: 200,
+						label: "Friend Requests"
+					}
+				]
+			},
+            {
+				columns:
+				[
+                    {
+						id: "smen",
+						type: "checkbox"
+					},
+					{
+						width: 200,
+						label: "Game Mentions"
+					}
+				]
+			},
+            {
+				columns:
+				[
+                    {
+						id: "sset",
+						type: "checkbox"
+					},
+					{
+						width: 200,
+						label: "Setting Changes"
+					}
+				]
+			}
+		]
+	}
+];
+
 $("#settingsGameContainer").append($("<row><div style='text-align:center;padding-top:10px;padding-bottom:10px'><label>Notification Sound Settings</label></div><input type='range' min='1' max='100' value='15' class='slider' id='volslid'><p>Volume: <span id='outp'></span>%</p></row>"));
 $(".slider").css({"width":"50%","height":"10px","-webkit-appearance":"none","outline":"none","background":"#f8f8f8","padding-top":"0px","border-radius":"5px"});
 $(".slider::-webkit-slider-thumb").css({"-webkit-appearance":"none","width":"20px","height":"20px","cursor":"pointer","background":"#000000","border-radius":"50%"});
