@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         AMQ Notification Sounds
 // @namespace    http://tampermonkey.net/
-// @version      1.2
+// @version      1.3
 // @description  Adds notification sounds
 // @author       ensorcell
 // @match        https://animemusicquiz.com/*
@@ -16,18 +16,12 @@
 // https://stackoverflow.com/questions/879152/how-do-i-make-javascript-beep
 // https://dopiaza.org/tools/datauri/index.php
 
-var vol=0.16;
+var vol=0.15;
 
-$("#settingsGameContainer")
-    .append($("<div></div>")
-				.attr("style", "text-align: center")
-				.append($("<label></label>")
-					.text("Notification Sound Settings")
-				)
-			)
-	.append($('<input type="range" min="1" max="100" value="15" class="slider" id="volslid"><p>Volume: <span id="outp"></span></p>')
-		.attr("style", "padding-top: 10px")
-	);
+$("#settingsGameContainer").append($("<row><div style='text-align:center;padding-top:10px;padding-bottom:10px'><label>Notification Sound Settings</label></div><input type='range' min='1' max='100' value='15' class='slider' id='volslid'><p>Volume: <span id='outp'></span>%</p></row>"));
+$(".slider").css({"width":"50%","height":"10px","-webkit-appearance":"none","outline":"none","background":"#f8f8f8","padding-top":"0px","border-radius":"5px"});
+$(".slider::-webkit-slider-thumb").css({"-webkit-appearance":"none","width":"20px","height":"20px","cursor":"pointer","background":"#000000","border-radius":"50%"});
+$(".slider::-moz-range-thumb").css({"width":"20px","height":"20px","cursor":"pointer","background":"#000000","border-radius":"50%"});
 
 var slider=document.getElementById("volslid");
 var output=document.getElementById("outp");
