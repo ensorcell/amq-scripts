@@ -217,8 +217,8 @@ new Listener("new friend request recived", function (payload){
 }).bindListener();
 new Listener("Room Settings Changed", (changes) =>{
     if (getSaveData('cset',true)){
-        cset.volume=getSaveData('vol',0.15);
-        cset.play()
+        set.volume=getSaveData('vol',0.15);
+        set.play()
     }
 }).bindListener();
 new Listener("Game Chat Message", function (payload){
