@@ -123,7 +123,7 @@ cookies2SavedData();
 $("#settingsGameContainer").append($("<row id='volbox'><div style='text-align:center;padding-top:10px;padding-bottom:10px' id='soundSettingsTitle'><label>Notification Sound Settings</label></row>"));
 $("#volbox").append("<div id='soundSettingsTable' style='width:100%;display:flex;flex-direction:row;'></div>");
 $("#soundSettingsTable").append("<div id='soundToggle' style='width:40%;flex:0 0 40%;'></div>");
-$("#soundSettingsTable").append("<div id='sliderBox' style='width:40%;flex:1;'></div>");
+$("#soundSettingsTable").append("<div id='sliderBox' style='width:40%;flex:1;margin-right:15%;'></div>");
 $("#sliderBox").append("</div><input type='range' min='0' max='100' value='15' class='slider' id='volslid'><p>Volume: <span id='outp'></span>%</p>");
 $(".slider").css({"width":"100%","height":"10px","-webkit-appearance":"none","-moz-appearance":"none","outline":"none","padding-top":"0px","background":"#f8f8f8","border-radius":"5px"});
 //$(".slider::-webkit-slider-thumb").css({"width":"20px","height":"20px","cursor":"pointer","background":"#207fcf","border-radius":"50%"}); //doesn't seem to work
