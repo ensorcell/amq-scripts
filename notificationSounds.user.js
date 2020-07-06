@@ -75,7 +75,7 @@ let notificationSettings = [
 
 $("#settingsGameContainer").append($("<row id='volbox'><div style='text-align:center;padding-top:10px;padding-bottom:10px'><label>Notification Sound Settings</label></div><input type='range' min='0' max='100' value='15' class='slider' id='volslid'><p>Volume: <span id='outp'></span>%</p></row>"));
 $(".slider").css({"width":"50%","height":"10px","-webkit-appearance":"none","-moz-appearance":"none","outline":"none","padding-top":"0px","background":"#f8f8f8","border-radius":"5px"});
-//$(".slider::-webkit-slider-thumb").css({"width":"20px","height":"20px","cursor":"pointer","background":"#207fcf","border-radius":"50%"});
+//$(".slider::-webkit-slider-thumb").css({"width":"20px","height":"20px","cursor":"pointer","background":"#207fcf","border-radius":"50%"}); //doesn't seem to work
 //$(".slider::-moz-range-thumb").css({"width":"20px","height":"20px","cursor":"pointer","background":"#207fcf","border-radius":"50%"});
 
 var slider=document.getElementById("volslid");
@@ -92,12 +92,8 @@ $(document).ready(function(){
 });
 
 $('#volbox').on('wheel', function(e){
-  if(e.originalEvent.deltaY<0){
-    $("#volslid").val(parseInt(slider.value)+2);
-  }
-  else{
-    $("#volslid").val(parseInt(slider.value)-2);
-  }
+  if(e.originalEvent.deltaY<0){$("#volslid").val(parseInt(slider.value)+2);}
+  else{$("#volslid").val(parseInt(slider.value)-2);}
   updateVolume();
 });
 
