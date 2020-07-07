@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         AMQ Notification Sounds
 // @namespace    http://tampermonkey.net/
-// @version      1.5
+// @version      1.6
 // @description  Adds notification sounds
 // @author       ensorcell, nyamu
 // @match        https://animemusicquiz.com/*
@@ -236,5 +236,6 @@ AMQ_addScriptData({
     description: `<p>Makes notification sounds for DMs, game invites, friend requests, mentions in game chat, and room setting changes</p>
     <p>Adjust which notifications you want to receive as well as the notification volume in the main settings tab</p>
     <img src="https://i.imgur.com/WRsnKiX.png"/>
-    <p>Code for settings graphics and saving by nyamu</p>`
+    <p>Code for settings graphics and saving by nyamu</p>
+    <p>Based on Zol's <a href='https://github.com/amq-script-project/AMQ-Scripts/blob/master/gameplay/amqSoundEffects.user.js'>script</a></p>`
 });
