@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         AMQ Notification Sounds
 // @namespace    http://tampermonkey.net/
-// @version      1.8
+// @version      1.8.1
 // @description  Adds notification sounds
 // @author       ensorcell, nyamu
 // @match        https://animemusicquiz.com/*
@@ -21,38 +21,45 @@ let notificationSettings = [
   {id:"toggleTable",rows:[
     {columns:[
       {
-        id: "cdms",
-        type: "checkbox"
+        label: "DMs"
       },
       {
-        label: "DMs"
+        label: "Game Invites"
+      },
+      {
+        label: "Friend Requests"
+      },
+      {
+        label: "Game Mentions"
       }
     ]},
     {columns:[
+      {
+        id: "cdms",
+        type: "checkbox"
+      },
       {
         id: "cinv",
         type: "checkbox"
       },
       {
-        label: "Game Invites"
-      }
-    ]},
-    {columns:[
-      {
         id: "creq",
         type: "checkbox"
       },
       {
-        label: "Friend Requests"
+        id: "cmen",
+        type: "checkbox"
       }
     ]},
     {columns:[
       {
-        id: "cmen",
-        type: "checkbox"
+        label: "Setting Changes"
       },
       {
-        label: "Game Mentions"
+        label: "Game Start"
+      },
+      {
+        label: "Lobby Vote"
       }
     ]},
     {columns:[
@@ -61,130 +68,117 @@ let notificationSettings = [
         type: "checkbox"
       },
       {
-        label: "Setting Changes"
-      }
-    ]},
-    {columns:[
-      {
         id: "cstart",
         type: "checkbox"
       },
       {
-        label: "Game Start"
-      }
-    ]},
-    {columns:[
-      {
         id: "cvote",
         type: "checkbox"
-      },
-      {
-        label: "Lobby Vote"
       }
     ]}
   ]}
 ];
 
 var saveData = {
-	'vol':0.15
+  'vol':0.15
 };
 
 //SAVING SETTINGS
 function saveSettings() {
-	localStorage.setItem("notificationSettings", JSON.stringify(saveData));
+  localStorage.setItem("notificationSettings", JSON.stringify(saveData));
 }
 
 // load settings from local storage
 function loadSettings() {
 // load settings, if nothing is loaded, use default settings
-	let loadedSettings = localStorage.getItem("notificationSettings");
-	if (loadedSettings !== null) {
-		saveData = JSON.parse(loadedSettings);
-	}
+  let loadedSettings = localStorage.getItem("notificationSettings");
+  if (loadedSettings !== null) {
+    saveData = JSON.parse(loadedSettings);
+  }
 }
 function getSaveData(key, defaultvalue) {
-	if(!saveData.hasOwnProperty(key)) return defaultvalue;
-	return saveData[key];
+  if(!saveData.hasOwnProperty(key)) return defaultvalue;
+  return saveData[key];
 }
 function setSaveData(key, value) {
-	saveData[key]=value;
-	saveSettings();
+  saveData[key]=value;
+  saveSettings();
 }
 
 function cookies2SavedData() {
   loadSettings();
-	for(let table of notificationSettings) {
-		for (let row of table.rows) {
-			for (let column of row.columns) {
-				if(column.type==="checkbox") {
-					let value=Cookies.get(column.id);
-					if(value!==undefined) {
-						saveData[column.id]=value==="true";
-						deleteCookie(column.id);
+  for(let table of notificationSettings) {
+    for (let row of table.rows) {
+      for (let column of row.columns) {
+        if(column.type==="checkbox") {
+          let value=Cookies.get(column.id);
+          if(value!==undefined) {
+            saveData[column.id]=value==="true";
+            deleteCookie(column.id);
             console.log(column.id)
-					}
-				}
-			}
-		}
-	}
-	deleteCookie("vol");
-	saveSettings();
+          }
+        }
+      }
+    }
+  }
+  deleteCookie("vol");
+  saveSettings();
 }
 
 function deleteCookie(key) {
-	Cookies.set(key, "", { expires: 0 });
+  Cookies.set(key, "", { expires: 0 });
 }
 
 cookies2SavedData();
 
 //GRAPHICS CONTAINERS
 $("#settingsGameContainer").append($("<row id='volbox'><div style='text-align:center;padding-top:10px;padding-bottom:10px' id='soundSettingsTitle'><label>Notification Sound Settings</label></row>"));
-$("#volbox").append("<div id='soundSettingsTable' style='width:100%;display:flex;flex-direction:row;'></div>");
-$("#soundSettingsTable").append("<div id='soundToggle' style='width:40%;flex:0 0 40%;'></div>");
-$("#soundSettingsTable").append("<div id='sliderBox' style='width:40%;flex:1;margin-right:15%;'></div>");
+$("#volbox").append("<div id='soundSettingsTable' style='width:100%;'></div>");
+$("#soundSettingsTable").append("<div id='sliderBox' style='width:30%;margin: auto;'></div>");
+$("#soundSettingsTable").append("<div id='soundToggle' style='width:100%;'></div>");
 $("#sliderBox").append("</div><input type='range' min='0' max='100' value='15' class='slider' id='volslid'><p>Volume: <span id='outp'></span>%</p>");
 $(".slider").css({"width":"100%","height":"10px","-webkit-appearance":"none","-moz-appearance":"none","outline":"none","padding-top":"0px","background":"#f8f8f8","border-radius":"5px"});
 //$(".slider::-webkit-slider-thumb").css({"width":"20px","height":"20px","cursor":"pointer","background":"#207fcf","border-radius":"50%"}); //doesn't seem to work
 //$(".slider::-moz-range-thumb").css({"width":"20px","height":"20px","cursor":"pointer","background":"#207fcf","border-radius":"50%"});
 
 for(let table of notificationSettings) {
-	$("#soundToggle")
-        .attr("style","width:40%")
-		.append($("<table></table>")
-			.attr("id", table.id)
-	);
-	for (let row of table.rows) {
-		let tr=$("<tr></tr>");
-		if(row.hasOwnProperty("height"))
-			tr.attr("height",row.height);
-		for (let column of row.columns) {
-			let td=$("<td></td>");
-			if(column.hasOwnProperty("width"))
-				td.attr("width",column.width);
-			else if(column.type=="checkbox") {
-        td.attr("width","30px");
-				let div=$('<div></div>');
-				div.addClass("customCheckbox");
-				let checkbox=$('<input type="checkbox" id="'+column.id+'">');
-				checkbox.prop("checked", getSaveData(column.id, true));
-				checkbox.click(function () {
-					setTimeout(() => {
-						let check=$("#"+column.id).prop("checked");
-						setSaveData(column.id, check);
-					},1);
-				});
-				div.append(checkbox);
-				div.append($('<label for="'+column.id+'"><i class="fa fa-check" aria-hidden="true"></i></label>'));
-				td.append(div);
-			}
-			else {
-				if(column.hasOwnProperty("label"))
-					td.text(column.label);
-			}
-			tr.append(td);
-		}
-		$("#"+table.id).append(tr);
-	}
+  $("#soundToggle")
+    .append($("<table></table>")
+    .attr("id", table.id)
+    .attr("style","width:100%;")
+  );
+  for (let row of table.rows) {
+    let tr=$("<tr></tr>");
+    if(row.hasOwnProperty("height"))
+      tr.attr("height",row.height);
+    for (let column of row.columns) {
+      let td=$("<td></td>");
+      if(column.hasOwnProperty("width"))
+        td.attr("width",column.width);
+      else if(column.type=="checkbox"){
+        td.attr("width","25%");
+        let div=$('<div></div>');
+        div.addClass("customCheckbox");
+        let checkbox=$('<input type="checkbox" id="'+column.id+'">');
+        checkbox.prop("checked", getSaveData(column.id, true));
+        checkbox.click(function () {
+          setTimeout(() => {
+            let check=$("#"+column.id).prop("checked");
+            setSaveData(column.id, check);
+          },1);
+        });
+        div.append(checkbox);
+        div.append($('<label for="'+column.id+'"><i class="fa fa-check" aria-hidden="true"></i></label>'));
+        td.append(div);
+      }
+      else {
+        if(column.hasOwnProperty("label"))
+          td.text(column.label);
+      }
+      tr.append(td);
+    }
+    $("#"+table.id).append(tr);
+  }
 }
 
 var slider=document.getElementById("volslid");
@@ -234,7 +228,7 @@ new Listener("new friend request recived", function (payload){
         inv.play()
     }
 }).bindListener();
-new Listener("Room Settings Changed", (changes) =>{
+new Listener("Room Settings Changed", (payload) =>{
     if (getSaveData('cset',true)){
         set.volume=getSaveData('vol',0.15);
         set.play()
@@ -248,19 +242,19 @@ new Listener("Game Chat Message", function (payload){
         }
     }
 }).bindListener();
-new Listener("quiz ready", (changes) =>{
+new Listener("quiz ready", (payload) =>{
     if (getSaveData('cstart',true)){
         start.volume=getSaveData('vol',0.15);
         start.play()
     }
 }).bindListener();
-new Listener("battle royal ready", (changes) =>{
+new Listener("battle royal ready", (payload) =>{
     if (getSaveData('cstart',true)){
         start.volume=getSaveData('vol',0.15);
         start.play()
     }
 }).bindListener();
-new Listener("return lobby vote start", (changes) =>{
+new Listener("return lobby vote start", (payload) =>{
     if (getSaveData('cvote',true)){
         start.volume=getSaveData('vol',0.15);
         start.play()
