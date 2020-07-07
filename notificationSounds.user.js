@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         AMQ Notification Sounds
 // @namespace    http://tampermonkey.net/
-// @version      1.8.1
+// @version      1.8.2
 // @description  Adds notification sounds
 // @author       ensorcell, nyamu
 // @match        https://animemusicquiz.com/*
@@ -134,12 +134,15 @@ cookies2SavedData();
 //GRAPHICS CONTAINERS
 $("#settingsGameContainer").append($("<row id='volbox'><div style='text-align:center;padding-top:10px;padding-bottom:10px' id='soundSettingsTitle'><label>Notification Sound Settings</label></row>"));
 $("#volbox").append("<div id='soundSettingsTable' style='width:100%;'></div>");
-$("#soundSettingsTable").append("<div id='sliderBox' style='width:30%;margin: auto;'></div>");
+$("#soundSettingsTable").append("<div id='sliderBox' style='width:30%;height:50px;margin:auto;'></div>");
 $("#soundSettingsTable").append("<div id='soundToggle' style='width:100%;'></div>");
-$("#sliderBox").append("</div><input type='range' min='0' max='100' value='15' class='slider' id='volslid'><p>Volume: <span id='outp'></span>%</p>");
+$("#sliderBox").append("<input type='range' min='0' max='100' value='15' class='slider' id='volslid'><p style='text-align:center;padding-top:5px;'>Volume: <span id='outp'></span>%</p>");
 $(".slider").css({"width":"100%","height":"10px","-webkit-appearance":"none","-moz-appearance":"none","outline":"none","padding-top":"0px","background":"#f8f8f8","border-radius":"5px"});
-//$(".slider::-webkit-slider-thumb").css({"width":"20px","height":"20px","cursor":"pointer","background":"#207fcf","border-radius":"50%"}); //doesn't seem to work
-//$(".slider::-moz-range-thumb").css({"width":"20px","height":"20px","cursor":"pointer","background":"#207fcf","border-radius":"50%"});
+
+const addCSS=s=>((d,e)=>{(e=d.createElement("style")).innerHTML=s;d.head.appendChild(e)})(document);
+
+addCSS('.slider::-webkit-slider-thumb {-webkit-appearance:none;appearance:none;border-style:none;width:20px;height:20px;background-color:#2e88d9;background-image:-webkit-linear-gradient(to bottom,#4497ea 0,#006ab7 100%);background-image:-o-linear-gradient(to bottom,#4497ea 0,#006ab7 100%);background-image:linear-gradient(to bottom,#4497ea 0,#006ab7 100%);cursor:pointer;border-radius:50%;}');
+addCSS('.slider::-moz-range-thumb {width:20px;height:20px;border-style:none;background-color:#2e88d9;background-image:-webkit-linear-gradient(to bottom,#4497ea 0,#006ab7 100%);background-image:-o-linear-gradient(to bottom,#4497ea 0,#006ab7 100%);background-image:linear-gradient(to bottom,#4497ea 0,#006ab7 100%);cursor:pointer;border-radius:50%;}');
 
 for(let table of notificationSettings) {
   $("#soundToggle")
