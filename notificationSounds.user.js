@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         AMQ Notification Sounds
 // @namespace    http://tampermonkey.net/
-// @version      1.9.1
+// @version      1.9.2
 // @description  Adds notification sounds
 // @author       ensorcell, nyamu
 // @match        https://animemusicquiz.com/*
@@ -253,13 +253,7 @@ new Listener("Game Chat Message", function (payload){
         }
     }
 }).bindListener();
-new Listener("quiz ready", (payload) =>{
-    if (getSaveData('cstart',true)){
-        start.volume=getSaveData('vol',0.15);
-        start.play()
-    }
-}).bindListener();
-new Listener("battle royal ready", (payload) =>{
+new Listener("Game Starting", (payload) =>{
     if (getSaveData('cstart',true)){
         start.volume=getSaveData('vol',0.15);
         start.play()
