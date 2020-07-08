@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         AMQ Notification Sounds
 // @namespace    http://tampermonkey.net/
-// @version      1.9.2
+// @version      1.9.3
 // @description  Adds notification sounds
 // @author       ensorcell, nyamu
 // @match        https://animemusicquiz.com/*
@@ -276,7 +276,17 @@ new Listener("popout message", (payload) =>{
 AMQ_addScriptData({
     name: "Notification Sounds",
     author: "ensorcell",
-    description: `<p>Makes notification sounds for DMs, game invites, friend requests, mentions in game chat, room setting changes, game or battle royale start, return to lobby votes, and ranked countdown popups</p>
+    description: `<p>Makes notification sounds for the following:</p>
+    <ul>
+    <li>DMs</li>
+    <li>Game invites</li>
+    <li>Friend requests</li>
+    <li>Game mentions</li>
+    <li>Setting changes</li>
+    <li>Game/BR start</li>
+    <li>Return to lobby votes</li>
+    <li>Ranked countdowns</li>
+    </ul>
     <p>Adjust which notifications you want to receive as well as the notification volume in the main settings tab</p>
     <img src="https://i.imgur.com/t3uykpp.png"/>
     <p>Code for settings graphics and saving by nyamu</p>
