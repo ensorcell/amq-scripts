@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         AMQ Notification Sounds
 // @namespace    http://tampermonkey.net/
-// @version      1.9.3
+// @version      1.9.4
 // @description  Adds notification sounds
 // @author       ensorcell, nyamu
 // @match        https://animemusicquiz.com/*
@@ -139,8 +139,8 @@ function deleteCookie(key) {
 cookies2SavedData();
 
 //GRAPHICS CONTAINERS
-$("#settingsGameContainer").append($("<row id='volbox'><div style='text-align:center;padding-top:10px;padding-bottom:10px' id='soundSettingsTitle'><label>Notification Sound Settings</label></row>"));
-$("#volbox").append("<div id='soundSettingsTable' style='width:100%;'></div>");
+$("#settingsGameContainer").append($("<row id='notifsettings'><div style='text-align:center;padding-top:10px;padding-bottom:10px' id='soundSettingsTitle'><label>Notification Sounds</label></row>"));
+$("#notifsettings").append("<div id='soundSettingsTable' style='width:100%;'></div>");
 $("#soundSettingsTable").append("<div id='sliderBox' style='width:30%;height:50px;margin:auto;'></div>");
 $("#soundSettingsTable").append("<div id='soundToggle' style='width:100%;'></div>");
 $("#sliderBox").append("<input type='range' min='0' max='100' value='15' class='slider' id='volslid'><p style='text-align:center;padding-top:5px;'>Volume: <span id='outp'></span>%</p>");
@@ -191,13 +191,13 @@ for(let table of notificationSettings) {
   }
 }
 
-var slider=document.getElementById("volslid");
+var volslider=document.getElementById("volslid");
 var output=document.getElementById("outp");
-slider.onchange=updateVolume;
+volslider.onchange=updateVolume;
 
 function updateVolume(){
-    setSaveData('vol',slider.value/100);
-    output.innerHTML=slider.value;
+    setSaveData('vol',volslider.value/100);
+    output.innerHTML=volslider.value;
 }
 
 $(document).ready(function(){
@@ -205,9 +205,9 @@ $(document).ready(function(){
     updateVolume();
 });
 
-$('#volbox').on('wheel', function(e){
-  if(e.originalEvent.deltaY<0){$("#volslid").val(parseInt(slider.value)+2);}
-  else{$("#volslid").val(parseInt(slider.value)-2);}
+$('#notifsettings').on('wheel', function(e){
+  if(e.originalEvent.deltaY<0){$("#volslid").val(parseInt(volslider.value)+2);}
+  else{$("#volslid").val(parseInt(volslider.value)-2);}
   updateVolume();
 });
 
