@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         AMQ Notification Sounds
 // @namespace    http://tampermonkey.net/
-// @version      1.9.4
+// @version      1.9.5
 // @description  Adds notification sounds
 // @author       ensorcell, nyamu
 // @match        https://animemusicquiz.com/*
@@ -203,6 +203,13 @@ function updateVolume(){
 $(document).ready(function(){
     $("#volslid").val((getSaveData('vol',0.15))*100);
     updateVolume();
+    $('body')
+		.click(() => {
+			document.title='AMQ';
+		})
+		.keypress(() => {
+			document.title='AMQ';
+		});
 });
 
 $('#notifsettings').on('wheel', function(e){
@@ -210,7 +217,6 @@ $('#notifsettings').on('wheel', function(e){
   else{$("#volslid").val(parseInt(volslider.value)-2);}
   updateVolume();
 });
-
 
 //NOTIFICATION SOUNDS
 if (!window.GameChat) return;
@@ -225,18 +231,21 @@ new Listener("chat message", function (payload){
     if (getSaveData('cdms',true)){
       dm.volume=getSaveData('vol',0.15);
       dm.play()
+      document.title='*AMQ';
     }
 }).bindListener();
 new Listener("game invite", function (payload){
     if (getSaveData('cinv',true)){
         inv.volume=getSaveData('vol',0.15);
         inv.play()
+        document.title='*AMQ';
     }
 }).bindListener();
 new Listener("new friend request recived", function (payload){
     if (getSaveData('creq',true)){
         inv.volume=getSaveData('vol',0.15);
         inv.play()
+        document.title='*AMQ';
     }
 }).bindListener();
 new Listener("Room Settings Changed", (payload) =>{
@@ -250,6 +259,7 @@ new Listener("Game Chat Message", function (payload){
         if (gameChat.atSelfRegex.test(payload.message)||payload.atEveryone){
             men.volume=getSaveData('vol',0.15);
             men.play();
+            document.title='*AMQ';
         }
     }
 }).bindListener();
@@ -257,6 +267,7 @@ new Listener("Game Starting", (payload) =>{
     if (getSaveData('cstart',true)){
         start.volume=getSaveData('vol',0.15);
         start.play()
+        document.title='*AMQ';
     }
 }).bindListener();
 new Listener("return lobby vote start", (payload) =>{
@@ -289,6 +300,7 @@ AMQ_addScriptData({
     </ul>
     <p>Adjust which notifications you want to receive as well as the notification volume in the main settings tab</p>
     <img src="https://i.imgur.com/t3uykpp.png"/>
+    <p>Adds an signifier for unread notifications in the tab title for when tabbed out</p>
     <p>Code for settings graphics and saving by nyamu</p>
     <p>Based on Zol's <a href='https://github.com/amq-script-project/AMQ-Scripts/blob/master/gameplay/amqSoundEffects.user.js'>script</a></p>`
 });
