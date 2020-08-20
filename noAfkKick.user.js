@@ -14,14 +14,6 @@
 
 //DISCLAIMER: may violate terms of service, use at your own risk
 
-$(document).ready(clr());
-
-function clr(){
-    setTimeout(function(){
-        delete afkKicker
-    }, 3000);
-}
-
 AfkKicker.prototype.setupAfkTimeout = function () {
 };
 AfkKicker.prototype.setupHostTimeout = function () {
