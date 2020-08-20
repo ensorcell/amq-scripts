@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         AMQ No Chat Floaters
 // @namespace    http://tampermonkey.net/
-// @version      1.0
+// @version      1.1
 // @description  Removes the emotes that float up when it's spammed
 // @author       ensorcell
 // @match        https://animemusicquiz.com/*
@@ -12,13 +12,7 @@
 // @copyright MIT license
 // ==/UserScript==
 
-ViewChanger.prototype.changeView=(function(){
-	var oldfunc=ViewChanger.prototype.changeView;
-	return function(){
-		oldfunc.apply(this,arguments);
-        gameChat._chatBubgleListener.unbindListener();
-	}
-})();
+EmoteBubler.prototype.newBubles=()=>{};
 
 AMQ_addScriptData({
     name: "No Chat Floaters",
