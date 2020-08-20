@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         AMQ No AFK Kick
 // @namespace    http://tampermonkey.net/
-// @version      1.1
+// @version      1.2
 // @description  Prevents you from getting kicked while afk
 // @author       ensorcell
 // @match        https://animemusicquiz.com/*
@@ -14,10 +14,8 @@
 
 //DISCLAIMER: may violate terms of service, use at your own risk
 
-AfkKicker.prototype.setupAfkTimeout = function () {
-};
-AfkKicker.prototype.setupHostTimeout = function () {
-};
+AfkKicker.prototype.setupAfkTimeout=()=>{};
+AfkKicker.prototype.setupHostTimeout=()=>{};
 
 AMQ_addScriptData({
     name: "No AFK Kick",
