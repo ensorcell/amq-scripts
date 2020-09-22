@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         AMQ DM Timestamps
-// @version      1.1
+// @version      1.2
 // @description  Adds timestamps to DM messages
 // @author       xSardine
 // @match        https://animemusicquiz.com/*
