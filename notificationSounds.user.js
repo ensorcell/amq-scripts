@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         AMQ Notification Sounds
 // @namespace    http://tampermonkey.net/
-// @version      1.9.5
+// @version      1.9.6
 // @description  Adds notification sounds
 // @author       ensorcell, nyamu
 // @match        https://animemusicquiz.com/*
@@ -270,6 +270,13 @@ new Listener("Game Starting", (payload) =>{
         document.title='*AMQ';
     }
 }).bindListener();
+new Listener("quiz unpause triggered", (payload) =>{
+    if (getSaveData('cstart',true)){
+        start.volume=getSaveData('vol',0.15);
+        start.play()
+        document.title='*AMQ';
+    }
+}).bindListener();
 new Listener("return lobby vote start", (payload) =>{
     if (getSaveData('cvote',true)){
         start.volume=getSaveData('vol',0.15);
@@ -295,6 +302,7 @@ AMQ_addScriptData({
     <li>Game mentions</li>
     <li>Setting changes</li>
     <li>Game/BR start</li>
+    <li>Game resume after pause</li>
     <li>Return to lobby votes</li>
     <li>Ranked countdowns</li>
     </ul>
