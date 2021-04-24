@@ -257,13 +257,20 @@ new Listener("Room Settings Changed", (payload) =>{
         doNotification(set, false);
     }
 }).bindListener();
-new Listener("Game Chat Message", function (payload){
-    if ((!socialTab.isBlocked(payload.sender))&&(getSaveData('cmen',true))){
-        if (gameChat.atSelfRegex.test(payload.message)||payload.atEveryone){
+
+const handleChatMessage = (payload) => {
+    if ( !socialTab.isBlocked(payload.sender) && getSaveData('cmen',true) ){
+        if ( gameChat.atSelfRegex.test(payload.message) || payload.atEveryone ){
             doNotification(men)
         }
     }
+}
+new Listener("Game Chat Message", handleChatMessage).bindListener(); //legacy, just in case the server ever sends messages using this
+    
+new Listener("game chat update", function (payload){
+    payload.messages.forEach(handleChatMessage);
 }).bindListener();
+
 new Listener("Game Starting", (payload) =>{
     if (getSaveData('cstart',true)){
         doNotification(start)
