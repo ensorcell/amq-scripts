@@ -1,9 +1,9 @@
 // ==UserScript==
 // @name         AMQ Notification Sounds
 // @namespace    http://tampermonkey.net/
-// @version      1.9.6
+// @version      1.9.7
 // @description  Adds notification sounds
-// @author       ensorcell, nyamu
+// @author       ensorcell, nyamu, Zolhungaj
 // @match        https://animemusicquiz.com/*
 // @grant        none
 // @downloadURL  https://github.com/ensorcell/amq-scripts/raw/master/notificationSounds.user.js
